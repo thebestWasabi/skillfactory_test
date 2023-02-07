@@ -28,8 +28,9 @@ public class Menu {
                     2. Показать список работников из ArrayList
                     3. Добавить сотрудника в ArrayList
                     4. Удалить сотрудника из ArrayList
-                    5. Привязать сотрудника к менеджеру
-                    6. Выход
+                    5. Сортировать список сотрудников по фамилии
+                    6. Привязать сотрудника к менеджеру
+                    7. Выход
                     """);
 
             int command = scanner.nextInt();
@@ -38,14 +39,18 @@ public class Menu {
                 case 2 -> printEmployeeList();
                 case 3 -> addEmployee();
                 case 4 -> deleteEmployee();
-                case 6 -> System.exit(0);
+                case 5 -> sortEmployeeByLastName();
+                case 7 -> System.exit(0);
             }
         }
     }
 
+    private void sortEmployeeByLastName() {
+        methods.sortedEmployeeByLastName();
+    }
+
     private  void addNewEmployees() {
         methods.openFileAndAddEmployeesInList();
-//        TXTReaderAndParser.parseFileToObjectList();
     }
 
     private void printEmployeeList() {

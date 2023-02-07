@@ -1,5 +1,7 @@
 package method;
 
+import comparator.EmployeeComparator;
+import comparator.LastNameEmpComparator;
 import file.TxtParser;
 import model.Department;
 import model.Employee;
@@ -31,6 +33,7 @@ public class EmployeeMethods {
             for (Employee employee : result) {
                 dataSource.addEmployee(employee);
             }
+            System.out.println("Работники добавлены в лист");
         } catch (Exception e) {
             System.out.println("Ошибка");
         }
@@ -67,6 +70,11 @@ public class EmployeeMethods {
         for (Employee employee : dataSource.getEmployees()) {
             System.out.println(employee);
         }
+    }
+
+    public void sortedEmployeeByLastName() {
+        EmployeeComparator comparator = new LastNameEmpComparator();
+        dataSource.getEmployees().stream().sorted(comparator).forEach(System.out::println);
     }
 
     public void assignAnEmployeeToAManager(String lastNameManager, String lastNameEmployee) {
