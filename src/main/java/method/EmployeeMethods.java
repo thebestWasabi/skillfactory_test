@@ -69,48 +69,17 @@ public class EmployeeMethods {
         }
     }
 
-    public Employee findEmployeeByLastName(String lastName) {
-        Employee current = null;
-        for (Employee employee : dataSource.getEmployees()) {
-            if (employee.getLastName().equals(lastName)) {
-                current = employee;
-                break;
-            }
-        }
-        return current;
-    }
-
-    public Manager findManagerByLastName(String lastName) {
-        Manager current = null;
-        for (Manager manager : dataSource.getManagers()) {
-            if (manager.getLastName().equals(lastName)) {
-                current = manager;
-                break;
-            }
-        }
-        return current;
-    }
-
-    public Employee findEmployeeById(long id) {
-        Employee current = null;
-        for (Employee employee : dataSource.getEmployees()) {
-            if (employee.getId() == id) {
-                current = employee;
-                break;
-            }
-        }
-        return current;
-    }
-
-
-
     public void assignAnEmployeeToAManager(String lastNameManager, String lastNameEmployee) {
         List<Department> result = new ArrayList<>();
 
         Manager currentManager = null;
         Employee currentEmp = null;
-        findManagerByLastName(lastNameManager);
-        findEmployeeByLastName(lastNameEmployee);
+
+        Employee employee = new Employee();
+        employee.findEmployeeByLastName(lastNameEmployee);
+
+        Manager manager = new Manager();
+        manager.findManagerByLastName(lastNameManager);
 
         result.add(new Department(currentManager, new ArrayList<>((Collection) currentEmp)));
 

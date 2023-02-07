@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import repository.DataSource;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,8 +21,8 @@ public class Employee extends Person {
 
     LocalDate dateOfEmployment;
 
-    public Employee(Long id, String firstName, String lastName, LocalDate dateOfBirth, LocalDate dateOfEmployment) {
-        super(id, firstName, lastName, dateOfBirth);
+    public Employee(Long id, String firstName, String lastName, LocalDate dateOfBirth, DataSource dataSource, LocalDate dateOfEmployment) {
+        super(id, firstName, lastName, dateOfBirth, dataSource);
         this.dateOfEmployment = dateOfEmployment;
     }
 
@@ -31,6 +32,28 @@ public class Employee extends Person {
         this.lastName = args[2];
         this.dateOfBirth = LocalDate.parse(args[3], FORMATTER);
         this.dateOfEmployment = LocalDate.parse(args[4], FORMATTER);
+    }
+
+    public Employee findEmployeeById(long id) {
+        Employee current = null;
+        for (Employee employee : dataSource.getEmployees()) {
+            if (employee.getId() == id) {
+                current = employee;
+                break;
+            }
+        }
+        return current;
+    }
+
+    public Employee findEmployeeByLastName(String lastName) {
+        Employee current = null;
+        for (Employee employee : dataSource.getEmployees()) {
+            if (employee.getLastName().equals(lastName)) {
+                current = employee;
+                break;
+            }
+        }
+        return current;
     }
 
     @Override
