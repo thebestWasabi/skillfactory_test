@@ -1,22 +1,21 @@
 package ui;
 
+import file.TXTReaderAndParser;
 import file.TxtParser;
+import lombok.extern.slf4j.Slf4j;
 import method.EmployeeMethods;
 import repository.DataSource;
 
 import java.util.Scanner;
 
+@Slf4j
 public class Menu {
 
     private Scanner scanner;
-    EmployeeMethods methods;
-
-    private final TxtParser txtParser;
-    private final DataSource dataSource;
+    private final EmployeeMethods methods;
 
     public Menu(TxtParser txtParser, DataSource dataSource) {
-        this.txtParser = txtParser;
-        this.dataSource = dataSource;
+        this.methods = new EmployeeMethods(txtParser, dataSource);
     }
 
     public void printMenu() {
@@ -25,10 +24,10 @@ public class Menu {
         while (true) {
             System.out.println("""
                                         
-                    1. Добавить новых работников в лист
-                    2. Показать список работников из листа
-                    3. Добавить сотрудника в лист
-                    4. Удалить сотрудника
+                    1. Добавить новых работников из txt-файла в ArrayList
+                    2. Показать список работников из ArrayList
+                    3. Добавить сотрудника в ArrayList
+                    4. Удалить сотрудника из ArrayList
                     5. Привязать сотрудника к менеджеру
                     6. Выход
                     """);
@@ -44,24 +43,21 @@ public class Menu {
         }
     }
 
-    private void addNewEmployees() {
-        methods = new EmployeeMethods(txtParser, dataSource);
+    private  void addNewEmployees() {
         methods.openFileAndAddEmployeesInList();
+//        TXTReaderAndParser.parseFileToObjectList();
     }
 
     private void printEmployeeList() {
-        methods = new EmployeeMethods(txtParser, dataSource);
         methods.prettyPrintEmployees();
     }
 
     private void addEmployee() {
-        methods = new EmployeeMethods(txtParser, dataSource);
         methods.addEmployee();
     }
 
     private void deleteEmployee() {
         System.out.println("Введите id сотрудника, которого хотите удалить из списка");
-        methods = new EmployeeMethods(txtParser, dataSource);
         methods.delete(scanner.nextLong());
     }
 }
