@@ -1,10 +1,7 @@
 package ui;
 
-import file.TXTReaderAndParser;
-import file.TxtParser;
 import lombok.extern.slf4j.Slf4j;
-import method.EmployeeMethods;
-import repository.DataSource;
+import model.Employee;
 
 import java.util.Scanner;
 
@@ -12,10 +9,10 @@ import java.util.Scanner;
 public class Menu {
 
     private Scanner scanner;
-    private final EmployeeMethods methods;
+    private final Employee employee;
 
-    public Menu(TxtParser txtParser, DataSource dataSource) {
-        this.methods = new EmployeeMethods(txtParser, dataSource);
+    public Menu() {
+        this.employee = new Employee();
     }
 
     public void printMenu() {
@@ -24,45 +21,45 @@ public class Menu {
         while (true) {
             System.out.println("""
                                         
-                    1. Добавить новых работников из txt-файла в ArrayList
-                    2. Показать список работников из ArrayList
-                    3. Добавить сотрудника в ArrayList
-                    4. Удалить сотрудника из ArrayList
-                    5. Сортировать список сотрудников по фамилии
-                    6. Привязать сотрудника к менеджеру
-                    7. Выход
+                    1. Показать список работников
+                    2. Добавить работника в список
+                    3. Удалить работника из листа
+                    4. Сортировать список работников по фамилии
+                    5. Поменять тип сотрудника
+                    6. Выход
                     """);
-
+            System.out.print("Введите свой выбор сюда -> ");
             int command = scanner.nextInt();
             switch (command) {
-                case 1 -> addNewEmployees();
-                case 2 -> printEmployeeList();
-                case 3 -> addEmployee();
-                case 4 -> deleteEmployee();
-                case 5 -> sortEmployeeByLastName();
-                case 7 -> System.exit(0);
+                case 1 -> printEmployees();
+                case 2 -> addEmployeeInList();
+                case 3 -> removeEmployeeFromTheList();
+                case 4 -> sortedEmployeeByLastName();
+                case 5 -> changeEmployeeType();
+                case 6 -> System.exit(0);
             }
         }
     }
 
-    private void sortEmployeeByLastName() {
-        methods.sortedEmployeeByLastName();
+    private void printEmployees() {
+        employee.prettyPrintEmployee();
     }
 
-    private  void addNewEmployees() {
-        methods.openFileAndAddEmployeesInList();
+    private void addEmployeeInList() {
+        employee.addEmployeesInList();
     }
 
-    private void printEmployeeList() {
-        methods.prettyPrintEmployees();
+    private void removeEmployeeFromTheList() {
+        System.out.print("Введите фамилию работника которого хотите удалить: ");
+        scanner = new Scanner(System.in);
+        employee.removeEmployee(scanner.nextLine());
     }
 
-    private void addEmployee() {
-        methods.addEmployee();
+    private void sortedEmployeeByLastName() {
+        employee.sortedEmployeeByLastName();
     }
 
-    private void deleteEmployee() {
-        System.out.println("Введите id сотрудника, которого хотите удалить из списка");
-        methods.delete(scanner.nextLong());
+    private void changeEmployeeType() {
+
     }
 }
