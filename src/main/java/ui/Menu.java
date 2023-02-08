@@ -39,12 +39,13 @@ public class Menu {
                 case 6 -> sortedEmployeeByDateOfEmployment();
                 case 7 -> changeEmployeeType();
                 case 8 -> System.exit(0);
+                default -> System.err.println("Не корректная команда" + "\n");
             }
         }
     }
 
     private void addEmployeeInList() {
-        employee.addEmployeesInList();
+        employee.openFileAndAddEmployeesInList();
     }
 
     private void printEmployees() {

@@ -12,11 +12,11 @@ import java.util.Scanner;
 
 public class Parser {
 
-    private static final String PATH = "src/main/resources/employee.txt";
+    private static final String TXT_FAIL_EMPLOYEE = "src/main/resources/employee.txt";
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     public static List<Employee> parseFileToObjectList() throws FileNotFoundException {
-        File file = new File(PATH);
+        File file = new File(TXT_FAIL_EMPLOYEE);
         Scanner scanner = new Scanner(file);
 
         List<Employee> employees = new ArrayList<>();
