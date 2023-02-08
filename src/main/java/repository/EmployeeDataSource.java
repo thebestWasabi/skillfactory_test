@@ -5,11 +5,8 @@ import model.Manager;
 
 import java.util.List;
 
-public interface DataSource {
+public interface EmployeeDataSource {
 
     List<Employee> getEmployees();
-    List<Manager> getManagers();
     void addEmployee(Employee employee);
-    void addManager(Manager manager);
-
 }

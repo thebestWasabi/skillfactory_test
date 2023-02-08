@@ -1,69 +1,81 @@
 package model;
 
-import lombok.AccessLevel;
+import comparator.EmployeeComparator;
+import comparator.LastNameEmpComparator;
+import file.Parser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.FieldDefaults;
-import repository.DataSource;
+import repository.EmployeeDataSource;
+import repository.EmployeeDataSourceImpl;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.List;
 
-
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
 @NoArgsConstructor
-public class Employee extends Person {
+public class Employee {
 
-    final static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    private EmployeeDataSource employeeDataSource = new EmployeeDataSourceImpl();
 
-    LocalDate dateOfEmployment;
+    private String firstName;
+    private String lastName;
+    private LocalDate dateOfBirth;
+    private LocalDate dateOfEmployment;
 
-    public Employee(Long id, String firstName, String lastName, LocalDate dateOfBirth, DataSource dataSource, LocalDate dateOfEmployment) {
-        super(id, firstName, lastName, dateOfBirth, dataSource);
+    public Employee(String firstName, String lastName, LocalDate dateOfBirth, LocalDate dateOfEmployment) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
         this.dateOfEmployment = dateOfEmployment;
     }
 
-    public Employee(String[] args) {
-        this.id = Long.valueOf(args[0]);
-        this.firstName = args[1];
-        this.lastName = args[2];
-        this.dateOfBirth = LocalDate.parse(args[3], FORMATTER);
-        this.dateOfEmployment = LocalDate.parse(args[4], FORMATTER);
-    }
-
-    public Employee findEmployeeById(long id) {
-        Employee current = null;
-        for (Employee employee : dataSource.getEmployees()) {
-            if (employee.getId() == id) {
-                current = employee;
+    public void findEmployeeByLastName(String lastName) {
+        Employee currentEmployee = null;
+        for (Employee employee : employeeDataSource.getEmployees()) {
+            if (employee.lastName.equals(lastName)) {
+                currentEmployee = employee;
                 break;
             }
         }
-        return current;
     }
 
-    public Employee findEmployeeByLastName(String lastName) {
-        Employee current = null;
-        for (Employee employee : dataSource.getEmployees()) {
-            if (employee.getLastName().equals(lastName)) {
-                current = employee;
-                break;
-            }
+    public void prettyPrintEmployee() {
+        for (Employee employee : employeeDataSource.getEmployees()) {
+            System.out.println(employee);
         }
-        return current;
+    }
+
+    public void addEmployeesInList() {
+        try {
+            List<Employee> result = Parser.parseFileToObjectList();
+            for (Employee employee : result) {
+                employeeDataSource.addEmployee(employee);
+            }
+            System.out.println("Работники добавлены в список");
+        } catch (FileNotFoundException e) {
+            System.out.println("Файл не найден");
+        }
+    }
+
+    public void removeEmployee(String lastName) {
+        employeeDataSource.getEmployees().removeIf(employee -> employee.lastName.equals(lastName));
+    }
+
+    public void sortedEmployeeByLastName() {
+        EmployeeComparator comparator = new LastNameEmpComparator();
+        employeeDataSource.getEmployees().stream().sorted(comparator).forEach(System.out::println);
     }
 
     @Override
     public String toString() {
-        return "Employee (" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
+        return "Employee{" +
+                "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", dateOfEmployment=" + dateOfEmployment +
-                ')';
+                '}';
     }
 }
