@@ -1,7 +1,6 @@
 package repository;
 
 import model.Employee;
-import model.Manager;
 
 import java.util.ArrayList;
 import java.util.List;

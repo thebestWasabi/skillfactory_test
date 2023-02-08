@@ -7,13 +7,12 @@ import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
 public class Department {
 
-    Manager manager;
-    List<Employee> employees;
+    private Manager manager;
+    private List<Employee> employees;
 
     public Department(Manager manager, List<Employee> employees) {
         this.manager = manager;

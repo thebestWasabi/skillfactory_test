@@ -14,5 +14,4 @@ import java.util.List;
 
 public class Manager {
 
-    final static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 }
