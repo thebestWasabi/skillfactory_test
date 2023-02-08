@@ -15,15 +15,18 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class Employee {
 
-    private EmployeeDataSource employeeDataSource = new EmployeeDataSourceImpl();
+    private EmployeeDataSource employeeDataSource;
 
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
     private LocalDate dateOfEmployment;
+
+    public Employee() {
+        this.employeeDataSource = new EmployeeDataSourceImpl();
+    }
 
     public Employee(String firstName, String lastName, LocalDate dateOfBirth, LocalDate dateOfEmployment) {
         this.firstName = firstName;
@@ -37,6 +40,7 @@ public class Employee {
         for (Employee employee : employeeDataSource.getEmployees()) {
             if (employee.lastName.equals(lastName)) {
                 currentEmployee = employee;
+                System.out.println(currentEmployee);
                 break;
             }
         }
@@ -68,6 +72,8 @@ public class Employee {
         EmployeeComparator comparator = new LastNameEmpComparator();
         employeeDataSource.getEmployees().stream().sorted(comparator).forEach(System.out::println);
     }
+
+
 
     @Override
     public String toString() {
