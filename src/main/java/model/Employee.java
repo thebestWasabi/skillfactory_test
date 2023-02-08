@@ -1,10 +1,11 @@
 package model;
 
+import comparator.ComparatorUTIL;
 import comparator.EmployeeComparator;
+import comparator.EmployeeComparatorType;
 import comparator.LastNameEmpComparator;
 import file.Parser;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import repository.EmployeeDataSource;
 import repository.EmployeeDataSourceImpl;
@@ -12,11 +13,12 @@ import repository.EmployeeDataSourceImpl;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Scanner;
 
 @Getter
 @Setter
 public class Employee {
-
+    Scanner scanner;
     private EmployeeDataSource employeeDataSource;
 
     private String firstName;
@@ -35,21 +37,28 @@ public class Employee {
         this.dateOfEmployment = dateOfEmployment;
     }
 
-    public void findEmployeeByLastName(String lastName) {
+    public Employee findEmployeeByLastName(String lastName) {
         Employee currentEmployee = null;
         for (Employee employee : employeeDataSource.getEmployees()) {
             if (employee.lastName.equals(lastName)) {
                 currentEmployee = employee;
-                System.out.println(currentEmployee);
                 break;
             }
         }
+        return currentEmployee;
     }
 
-    public void prettyPrintEmployee() {
+    public void prettyPrintAllEmployees() {
         for (Employee employee : employeeDataSource.getEmployees()) {
             System.out.println(employee);
         }
+    }
+
+    public void printOneEmployee() {
+        System.out.print("Введите фамилию работника информацию о котором хотите вывести на экран: ");
+        scanner = new Scanner(System.in);
+        Employee employeeByLastName = findEmployeeByLastName(scanner.nextLine());
+        System.out.println(employeeByLastName);
     }
 
     public void addEmployeesInList() {
@@ -64,15 +73,23 @@ public class Employee {
         }
     }
 
-    public void removeEmployee(String lastName) {
-        employeeDataSource.getEmployees().removeIf(employee -> employee.lastName.equals(lastName));
+    public void removeEmployee() {
+        System.out.print("Введите фамилию работника которого хотите удалить: ");
+        scanner = new Scanner(System.in);
+        Employee employeeByLastName = findEmployeeByLastName(scanner.nextLine());
+        employeeDataSource.getEmployees().remove(employeeByLastName);
     }
 
     public void sortedEmployeeByLastName() {
-        EmployeeComparator comparator = new LastNameEmpComparator();
+        EmployeeComparator comparator = ComparatorUTIL.getEmployeeComparator(EmployeeComparatorType.LAST_NAME);
         employeeDataSource.getEmployees().stream().sorted(comparator).forEach(System.out::println);
     }
 
+    public void sortedEmployeeByDateOfEmployment() {
+        EmployeeComparator comparator = ComparatorUTIL.getEmployeeComparator(EmployeeComparatorType.DATE_OF_EMPLOYMENT);
+        employeeDataSource.getEmployees().stream().sorted(comparator).forEach(System.out::println);
+
+    }
 
 
     @Override

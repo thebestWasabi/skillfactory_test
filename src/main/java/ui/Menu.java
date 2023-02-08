@@ -8,7 +8,6 @@ import java.util.Scanner;
 @Slf4j
 public class Menu {
 
-    private Scanner scanner;
     private final Employee employee;
 
     public Menu() {
@@ -16,8 +15,7 @@ public class Menu {
     }
 
     public void printMenu() {
-        scanner = new Scanner(System.in);
-
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("""
                                         
@@ -26,8 +24,9 @@ public class Menu {
                     3. Удалить работника из листа по фамилии
                     4. Найти конкретного работника по фамилии
                     5. Сортировать список работников по фамилии
-                    6. Поменять тип сотрудника
-                    7. Выход
+                    6. Сортировать список работников по дате принятия на работу
+                    7. Поменять тип сотрудника
+                    8. Выход
                     """);
             System.out.print("Введите свой выбор сюда -> ");
             int command = scanner.nextInt();
@@ -37,8 +36,9 @@ public class Menu {
                 case 3 -> removeEmployeeFromTheList();
                 case 4 -> getEmployeeByLastName();
                 case 5 -> sortedEmployeeByLastName();
-                case 6 -> changeEmployeeType();
-                case 7 -> System.exit(0);
+                case 6 -> sortedEmployeeByDateOfEmployment();
+                case 7 -> changeEmployeeType();
+                case 8 -> System.exit(0);
             }
         }
     }
@@ -48,24 +48,23 @@ public class Menu {
     }
 
     private void printEmployees() {
-        employee.prettyPrintEmployee();
+        employee.prettyPrintAllEmployees();
     }
 
     private void removeEmployeeFromTheList() {
-        System.out.print("Введите фамилию работника которого хотите удалить: ");
-        scanner = new Scanner(System.in);
-        employee.removeEmployee(scanner.nextLine());
+        employee.removeEmployee();
     }
 
     private void getEmployeeByLastName() {
-        System.out.print("Введите фамилию работника информацию о котором хотите вывести на экран: ");
-        scanner = new Scanner(System.in);
-        String lastName = scanner.nextLine();
-        employee.findEmployeeByLastName(lastName);
+        employee.printOneEmployee();
     }
 
     private void sortedEmployeeByLastName() {
         employee.sortedEmployeeByLastName();
+    }
+
+    private void sortedEmployeeByDateOfEmployment() {
+        employee.sortedEmployeeByDateOfEmployment();
     }
 
     private void changeEmployeeType() {
