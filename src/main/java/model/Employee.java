@@ -5,19 +5,27 @@ import comparator.EmployeeComparator;
 import comparator.EmployeeComparatorType;
 import comparator.LastNameEmpComparator;
 import file.Parser;
+import file.TxtParser;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import repository.EmployeeDataSource;
 import repository.EmployeeDataSourceImpl;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
 @Getter
 @Setter
+@Slf4j
 public class Employee {
+
+    private final String TXT_FAIL_EMPLOYEE = "src/main/resources/employee.txt";
+    private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
     Scanner scanner;
     private EmployeeDataSource employeeDataSource;
 
@@ -35,6 +43,13 @@ public class Employee {
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.dateOfEmployment = dateOfEmployment;
+    }
+
+    public Employee(String[] args) {
+        this.firstName = args[0];
+        this.lastName = args[1];
+        this.dateOfBirth = LocalDate.parse(args[2], FORMATTER);
+        this.dateOfEmployment = LocalDate.parse(args[3], FORMATTER);
     }
 
     public Employee findEmployeeByLastName(String lastName) {
@@ -55,10 +70,10 @@ public class Employee {
     }
 
     public void printOneEmployee() {
-        System.out.print("Введите фамилию работника информацию о котором хотите вывести на экран: ");
+        log.info("Введите фамилию работника информацию о котором хотите вывести на экран: ");
         scanner = new Scanner(System.in);
         Employee employeeByLastName = findEmployeeByLastName(scanner.nextLine());
-        System.out.println(employeeByLastName);
+        log.info("{}", employeeByLastName);
     }
 
     public void addEmployeesInList() {
@@ -67,14 +82,29 @@ public class Employee {
             for (Employee employee : result) {
                 employeeDataSource.addEmployee(employee);
             }
-            System.out.println("Работники добавлены в список");
+            log.info("Работники добавлены в список");
         } catch (FileNotFoundException e) {
-            System.out.println("Файл не найден");
+            log.error("Файл не найден");
+        }
+    }
+
+    /**
+     * Добавление сотрудников из txt файла через конструктор и parser
+     */
+    public void openFileAndAddEmployeesInList() {
+        try {
+            List<Employee> result = TxtParser.parseFileToObjectList(TXT_FAIL_EMPLOYEE, " ", Employee.class);
+            for (Employee employee : result) {
+                employeeDataSource.addEmployee(employee);
+            }
+            log.info("Работники добавлены в список");
+        } catch (Exception e) {
+            log.error("Файл не найден");
         }
     }
 
     public void removeEmployee() {
-        System.out.print("Введите фамилию работника которого хотите удалить: ");
+        log.info("Введите фамилию работника которого хотите удалить: ");
         scanner = new Scanner(System.in);
         Employee employeeByLastName = findEmployeeByLastName(scanner.nextLine());
         employeeDataSource.getEmployees().remove(employeeByLastName);
