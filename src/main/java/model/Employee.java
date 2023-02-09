@@ -107,6 +107,7 @@ public class Employee {
         scanner = new Scanner(System.in);
         Employee employeeByLastName = findEmployeeByLastName(scanner.nextLine());
         employeeDataSource.getEmployees().remove(employeeByLastName);
+        log.info("Работник {} удален из списка", employeeByLastName);
     }
 
     public void sortedEmployeeByLastName() {
