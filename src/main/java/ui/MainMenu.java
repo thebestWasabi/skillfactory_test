@@ -28,15 +28,15 @@ public class MainMenu {
                     7. Выход
                     """);
             System.out.print("Введите свой выбор сюда -> ");
-            int command = scanner.nextInt();
+            String command = scanner.nextLine();
             switch (command) {
-                case 1 -> addEmployeeInList();
-                case 2 -> printEmployees();
-                case 3 -> removeEmployeeFromTheList();
-                case 4 -> getEmployeeByLastName();
-                case 5 -> sortedEmployee();
-                case 6 -> changeEmployeeType();
-                case 7 -> System.exit(0);
+                case "1" -> addEmployeeInList();
+                case "2" -> printEmployees();
+                case "3" -> removeEmployeeFromTheList();
+                case "4" -> getEmployeeByLastName();
+                case "5" -> sortedEmployee();
+                case "6" -> changeEmployeeType();
+                case "7" -> System.exit(0);
                 default -> System.err.println("Не корректная команда" + "\n");
             }
         }
