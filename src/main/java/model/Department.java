@@ -11,11 +11,15 @@ import java.util.List;
 @Setter
 public class Department {
 
+    private long departmentId;
     private Manager manager;
     private List<Employee> employees;
 
-    public Department(Manager manager, List<Employee> employees) {
+    public Department(long departmentId, Manager manager, List<Employee> employees) {
+        this.departmentId = departmentId;
         this.manager = manager;
         this.employees = employees;
     }
+
+
 }
