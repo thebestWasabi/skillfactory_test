@@ -3,7 +3,6 @@ package model;
 import comparator.ComparatorUTIL;
 import comparator.EmployeeComparator;
 import comparator.EmployeeComparatorType;
-import comparator.LastNameEmpComparator;
 import file.Parser;
 import file.TxtParser;
 import lombok.Getter;
@@ -26,7 +25,7 @@ public class Employee {
     private final String TXT_FAIL_EMPLOYEE = "src/main/resources/employee.txt";
     private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-    Scanner scanner;
+    private Scanner scanner;
     private EmployeeDataSource employeeDataSource;
 
     private String firstName;
@@ -120,7 +119,6 @@ public class Employee {
         employeeDataSource.getEmployees().stream().sorted(comparator).forEach(System.out::println);
 
     }
-
 
     @Override
     public String toString() {

@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class TxtParser {
 
-    public static  <T> List<T> parseFileToObjectList(String fileName, String separator, Class<T> modelClass) throws Exception {
+    public static <T> List<T> parseFileToObjectList(String fileName, String separator, Class<T> modelClass) throws Exception {
         try (Scanner scanner = new Scanner(new File(fileName))) {
             List<T> cities = new ArrayList<>();
             while (scanner.hasNextLine()) {

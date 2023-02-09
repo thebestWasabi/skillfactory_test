@@ -6,11 +6,11 @@ import model.Employee;
 import java.util.Scanner;
 
 @Slf4j
-public class Menu {
+public class MainMenu {
 
     private final Employee employee;
 
-    public Menu() {
+    public MainMenu() {
         this.employee = new Employee();
     }
 
@@ -23,10 +23,9 @@ public class Menu {
                     2. Показать список работников
                     3. Удалить работника из листа по фамилии
                     4. Найти конкретного работника по фамилии
-                    5. Сортировать список работников по фамилии
-                    6. Сортировать список работников по дате принятия на работу
-                    7. Поменять тип сотрудника
-                    8. Выход
+                    5. Сортировать список работников
+                    6. Поменять тип сотрудника
+                    7. Выход
                     """);
             System.out.print("Введите свой выбор сюда -> ");
             int command = scanner.nextInt();
@@ -35,10 +34,9 @@ public class Menu {
                 case 2 -> printEmployees();
                 case 3 -> removeEmployeeFromTheList();
                 case 4 -> getEmployeeByLastName();
-                case 5 -> sortedEmployeeByLastName();
-                case 6 -> sortedEmployeeByDateOfEmployment();
-                case 7 -> changeEmployeeType();
-                case 8 -> System.exit(0);
+                case 5 -> sortedEmployee();
+                case 6 -> changeEmployeeType();
+                case 7 -> System.exit(0);
                 default -> System.err.println("Не корректная команда" + "\n");
             }
         }
@@ -60,12 +58,9 @@ public class Menu {
         employee.printOneEmployee();
     }
 
-    private void sortedEmployeeByLastName() {
-        employee.sortedEmployeeByLastName();
-    }
-
-    private void sortedEmployeeByDateOfEmployment() {
-        employee.sortedEmployeeByDateOfEmployment();
+    private void sortedEmployee() {
+        SortedEmployeeMenu menu = new SortedEmployeeMenu(employee);
+        menu.sortedMenu();
     }
 
     private void changeEmployeeType() {
