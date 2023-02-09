@@ -64,7 +64,7 @@ public class Employee {
 
     public void prettyPrintAllEmployees() {
         for (Employee employee : employeeDataSource.getEmployees()) {
-            System.out.println(employee);
+            log.info("{}", employee);
         }
     }
 
