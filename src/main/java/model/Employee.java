@@ -83,7 +83,7 @@ public class Employee {
             }
             log.info("Работники добавлены в список");
         } catch (FileNotFoundException e) {
-            log.error("Файл не найден");
+            log.error("Файл не найден: {}", e.getMessage());
         }
     }
 
@@ -98,7 +98,7 @@ public class Employee {
             }
             log.info("Работники добавлены в список");
         } catch (Exception e) {
-            log.error("Файл не найден");
+            log.error("Файл не найден: {}", e.getMessage());
         }
     }
 
