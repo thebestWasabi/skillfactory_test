@@ -1,4 +1,4 @@
-Andrey Kuvshinov 26.03.1990 18.10.2017
-Sergey Ivanov 31.03.1990 20.10.2018
-Denis Sidorov 31.06.1995 20.03.2017
-Kiril Smirnov 12.04.1985 19.07.2011
+Andrey Kuvshinov 26.03.1990 18.10.2017 MANAGER
+Sergey Ivanov 31.03.1990 20.10.2018 WORKER
+Denis Sidorov 31.06.1995 20.03.2017 WORKER
+Kiril Smirnov 12.04.1985 19.07.2011 WORKER

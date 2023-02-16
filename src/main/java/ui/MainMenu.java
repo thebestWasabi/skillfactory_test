@@ -1,6 +1,7 @@
 package ui;
 
 import lombok.extern.slf4j.Slf4j;
+import model.Department;
 import model.Employee;
 
 import java.util.Scanner;
@@ -8,10 +9,10 @@ import java.util.Scanner;
 @Slf4j
 public class MainMenu {
 
-    private final Employee employee;
+    private final Department department;
 
     public MainMenu() {
-        this.employee = new Employee();
+        department = new Department();
     }
 
     public void printMenu() {
@@ -22,10 +23,9 @@ public class MainMenu {
                     1. Добавить работников в список
                     2. Показать список работников
                     3. Удалить работника из листа по фамилии
-                    4. Найти конкретного работника по фамилии
-                    5. Сортировать список работников
-                    6. Поменять тип сотрудника
-                    7. Выход
+                    4. Изменить должность работника (доп. меню)
+                    5. Сортировать список работников (доп.меню)
+                    6. Выход
                     """);
             System.out.print("Введите свой выбор сюда -> ");
             String command = scanner.nextLine();
@@ -33,37 +33,35 @@ public class MainMenu {
                 case "1" -> addEmployeeInList();
                 case "2" -> printEmployees();
                 case "3" -> removeEmployeeFromTheList();
-                case "4" -> getEmployeeByLastName();
+                case "4" -> changeEmployeeType();
                 case "5" -> sortedEmployee();
-                case "6" -> changeEmployeeType();
-                case "7" -> System.exit(0);
-                default -> System.err.println("Не корректная команда" + "\n");
+                case "6" -> System.exit(0);
+                default -> log.info("Не корректная команда");
             }
         }
     }
 
     private void addEmployeeInList() {
-        employee.openFileAndAddEmployeesInList();
+        department.addEmployeesInList();
     }
 
     private void printEmployees() {
-        employee.prettyPrintAllEmployees();
+        department.prettyPrintAllEmployees();
     }
 
     private void removeEmployeeFromTheList() {
-        employee.removeEmployee();
-    }
-
-    private void getEmployeeByLastName() {
-        employee.printOneEmployee();
-    }
-
-    private void sortedEmployee() {
-        SortedEmployeeMenu menu = new SortedEmployeeMenu(employee);
-        menu.sortedMenu();
+        department.removeEmployee();
     }
 
     private void changeEmployeeType() {
-
+        ChangeEmployeeType menu = new ChangeEmployeeType(department);
+        menu.changeEmployeeType();
     }
+
+    private void sortedEmployee() {
+        SortedEmployeeMenu menu = new SortedEmployeeMenu(department);
+        menu.sortedMenu();
+    }
+
+
 }

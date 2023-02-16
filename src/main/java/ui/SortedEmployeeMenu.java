@@ -1,15 +1,16 @@
 package ui;
 
+import model.Department;
 import model.Employee;
 
 import java.util.Scanner;
 
 public class SortedEmployeeMenu {
 
-    private final Employee employee;
+    private final Department department;
 
-    public SortedEmployeeMenu(Employee employee) {
-        this.employee = employee;
+    public SortedEmployeeMenu(Department department) {
+        this.department = department;
     }
 
     public void sortedMenu() {
@@ -35,10 +36,10 @@ public class SortedEmployeeMenu {
     }
 
     private void sortedEmployeeByLastName() {
-        employee.sortedEmployeeByLastName();
+        department.sortedEmployeeByLastName();
     }
 
     private void sortedEmployeeByDateOfEmployment() {
-        employee.sortedEmployeeByDateOfEmployment();
+        department.sortedEmployeeByDateOfEmployment();
     }
 }
