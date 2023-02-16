@@ -23,7 +23,7 @@ public class ChangeEmployeeType {
                     3. Привязать работника к менеджеру
                     4. Назад
                     """);
-            System.out.print("---");
+            System.out.println("---");
             command = scanner.nextLine();
             switch (command) {
                 case "1" -> getEmployeeByLastName();
