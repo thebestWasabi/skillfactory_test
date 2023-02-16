@@ -45,7 +45,14 @@ public class Department {
         log.info("Введите фамилию работника информацию о котором хотите вывести на экран: ");
         scanner = new Scanner(System.in);
         Employee employeeByLastName = findEmployeeByLastName(scanner.nextLine());
-        log.info("{}", employeeByLastName);
+        if (employeeByLastName != null) {
+            log.info("{}", employeeByLastName);
+            for (Employee employee : employeeByLastName.getEmployeesList()) {
+                log.info("работник прикрепленный к данному менеджеру - {}", employee);
+            }
+        } else {
+            log.info("Такого работника нет");
+        }
     }
 
     public void addEmployeesInList() {
@@ -79,6 +86,8 @@ public class Department {
     }
 
     public void changeEmployeeType() {
+        prettyPrintAllEmployees();
+        System.out.println("---");
         log.info("Введите фамилию работника, должность которого вы хотите изменить");
         scanner = new Scanner(System.in);
 
@@ -86,10 +95,14 @@ public class Department {
         if (employee != null) {
             if (employee.getEmployeeType() == EmployeeType.WORKER) {
                 employee.setEmployeeType(EmployeeType.MANAGER);
+
                 log.info("Вы повысили работника {} {} до менеджера",
                         employee.getLastName(), employee.getFirstName());
+
             } else if (employee.getEmployeeType() == EmployeeType.MANAGER) {
                 employee.setEmployeeType(EmployeeType.WORKER);
+                employee.getEmployeesList().clear();
+
                 log.info("Вы понизили менеджера {} {} до рядового работника",
                         employee.getLastName(), employee.getFirstName());
             }
@@ -99,13 +112,24 @@ public class Department {
     }
 
     public void addEmployeeToTheManager() {
-        log.info("Введите фамилию менеджера к которому хотите прикрепить работников");
+        prettyPrintAllEmployees();
+        System.out.println("---");
+        log.info("Введите фамилию менеджера к которому хотите прикрепить работника");
         scanner = new Scanner(System.in);
 
         Employee manager = findEmployeeByLastName(scanner.nextLine());
         if (manager != null) {
             if (manager.getEmployeeType() == EmployeeType.MANAGER) {
-                System.out.println(manager);
+
+                log.info("Введите фамилию работника, которого хотите прикрепить к менеджеру {} {}",
+                        manager.getLastName(), manager.getFirstName());
+
+                Employee currentEmp = findEmployeeByLastName(scanner.nextLine());
+                manager.addEmployeeToManager(currentEmp);
+
+                log.info("Работник {} {} прикреплен к менеджеру {} {}",
+                        currentEmp.getLastName(), currentEmp.getFirstName(),
+                        manager.getLastName(), manager.getFirstName());
             } else {
                 log.info("{} {} - это рядовой сотрудник, а не менеджер", manager.getLastName(), manager.getFirstName());
             }

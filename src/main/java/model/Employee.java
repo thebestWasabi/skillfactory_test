@@ -34,9 +34,7 @@ public class Employee {
         employeesList = new ArrayList<>();
     }
 
-    public List<Employee> getEmployeesList() {
-        return employeesList;
-    }
+
 
     public void addEmployeeToManager(Employee employee) {
         this.employeesList.add(employee);

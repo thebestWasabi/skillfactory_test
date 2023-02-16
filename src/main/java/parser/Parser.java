@@ -26,7 +26,12 @@ public class Parser {
                     LocalDate.parse(employee[2], FORMATTER),
                     LocalDate.parse(employee[3], FORMATTER),
                     EmployeeType.valueOf(employee[4]));
-            employees.add(currentEmployee);
+
+            if (employees.contains(currentEmployee)) {
+                System.out.println("Этот работник уже есть в списке");
+            } else {
+                employees.add(currentEmployee);
+            }
         }
         return employees;
     }

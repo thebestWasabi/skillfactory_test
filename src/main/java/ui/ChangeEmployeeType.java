@@ -1,7 +1,6 @@
 package ui;
 
 import model.Department;
-import model.Employee;
 
 import java.util.Scanner;
 
@@ -19,12 +18,12 @@ public class ChangeEmployeeType {
         do {
             System.out.println("""
 
-                    1. Найти работника по фамилии
+                    1. Найти работника и его подчиненных (если они есть) по фамилии
                     2. Изменить должность сотрудника
                     3. Привязать работника к менеджеру
                     4. Назад
                     """);
-            System.out.print("Введите свой выбор сюда -> ");
+            System.out.print("---");
             command = scanner.nextLine();
             switch (command) {
                 case "1" -> getEmployeeByLastName();
