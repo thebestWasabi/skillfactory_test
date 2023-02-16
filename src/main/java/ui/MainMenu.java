@@ -27,7 +27,7 @@ public class MainMenu {
                     5. Сортировать список работников (откроется меню с доп возможностями)
                     6. Выход
                     """);
-            System.out.print("---");
+            System.out.println("---");
             String command = scanner.nextLine();
             switch (command) {
                 case "1" -> addEmployeeInList();

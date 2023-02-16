@@ -23,7 +23,7 @@ public class SortedEmployeeMenu {
                     2. Сортировка работников по дате принятия на работу
                     3. Назад
                     """);
-            System.out.print("---");
+            System.out.println("---");
             command = scanner.nextLine();
             switch (command) {
                 case "1" -> sortedEmployeeByLastName();
