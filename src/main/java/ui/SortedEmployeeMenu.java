@@ -14,7 +14,6 @@ public class SortedEmployeeMenu {
     }
 
     public void sortedMenu() {
-
         Scanner scanner = new Scanner(System.in);
         String command;
         do {
@@ -24,7 +23,7 @@ public class SortedEmployeeMenu {
                     2. Сортировка работников по дате принятия на работу
                     3. Назад
                     """);
-            System.out.print("Введите свой выбор сюда -> ");
+            System.out.print("---");
             command = scanner.nextLine();
             switch (command) {
                 case "1" -> sortedEmployeeByLastName();
