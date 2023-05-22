@@ -1,13 +1,16 @@
-package repository;
+package ru.wasabi.repository;
 
-import model.Employee;
+import org.springframework.stereotype.Component;
+import ru.wasabi.model.Employee;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeDataSourceImpl implements EmployeeDataSource {
+@Component
+public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     List<Employee> employees = new ArrayList<>();
+
 
     @Override
     public List<Employee> getEmployees() {
@@ -18,4 +21,5 @@ public class EmployeeDataSourceImpl implements EmployeeDataSource {
     public void addEmployee(Employee employee) {
         employees.add(employee);
     }
+
 }

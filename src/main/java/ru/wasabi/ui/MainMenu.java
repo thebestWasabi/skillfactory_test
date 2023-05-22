@@ -1,23 +1,27 @@
-package ui;
+package ru.wasabi.ui;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import model.Department;
-import model.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import ru.wasabi.model.Department;
 
 import java.util.Scanner;
 
 @Slf4j
+@RequiredArgsConstructor
+@Component
 public class MainMenu {
 
     private final Department department;
+    private final ChangeEmployeeType changeEmployeeType;
+    private final SortedEmployeeMenu sortedEmployeeMenu;
 
-    public MainMenu() {
-        department = new Department();
-    }
 
     public void printMenu() {
         Scanner scanner = new Scanner(System.in);
-        while (true) {
+        String command;
+        do {
             System.out.println("""
                                         
                     1. Добавить работников из txt-файла в список
@@ -27,19 +31,29 @@ public class MainMenu {
                     5. Сортировать список работников (откроется меню с доп возможностями)
                     6. Выход
                     """);
-            System.out.println("---");
-            String command = scanner.nextLine();
-            switch (command) {
-                case "1" -> addEmployeeInList();
-                case "2" -> printEmployees();
-                case "3" -> removeEmployeeFromTheList();
-                case "4" -> changeEmployeeType();
-                case "5" -> sortedEmployee();
-                case "6" -> System.exit(0);
-                default -> log.info("Не корректная команда");
-            }
-        }
+
+            command = select(scanner);
+        } while (!command.equals("6"));
     }
+
+
+    private String select(Scanner scanner) {
+        String command;
+        System.out.println("---");
+
+        command = scanner.nextLine();
+        switch (command) {
+            case "1" -> addEmployeeInList();
+            case "2" -> printEmployees();
+            case "3" -> removeEmployeeFromTheList();
+            case "4" -> changeEmployeeType();
+            case "5" -> sortedEmployee();
+            case "6" -> System.out.println("выход");
+            default -> log.info("Не корректная команда");
+        }
+        return command;
+    }
+
 
     private void addEmployeeInList() {
         department.addEmployeesInList();
@@ -54,14 +68,10 @@ public class MainMenu {
     }
 
     private void changeEmployeeType() {
-        ChangeEmployeeType menu = new ChangeEmployeeType(department);
-        menu.changeEmployeeType();
+        changeEmployeeType.changeEmployeeType();
     }
 
     private void sortedEmployee() {
-        SortedEmployeeMenu menu = new SortedEmployeeMenu(department);
-        menu.sortedMenu();
+        sortedEmployeeMenu.sortedMenu();
     }
-
-
 }

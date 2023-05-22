@@ -1,4 +1,4 @@
-package model;
+package ru.wasabi.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 @Slf4j
 @Getter
@@ -24,6 +23,7 @@ public class Employee {
 
     private List<Employee> employeesList;
 
+
     public Employee(String firstName, String lastName, LocalDate dateOfBirth,
                     LocalDate dateOfEmployment, EmployeeType employeeType) {
         this.firstName = firstName;
@@ -33,8 +33,6 @@ public class Employee {
         this.employeeType = employeeType;
         employeesList = new ArrayList<>();
     }
-
-
 
     public void addEmployeeToManager(Employee employee) {
         this.employeesList.add(employee);
