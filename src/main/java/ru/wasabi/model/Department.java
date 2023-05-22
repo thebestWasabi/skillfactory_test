@@ -118,18 +118,41 @@ public class Department {
         log.info("Введите фамилию менеджера к которому хотите прикрепить работника");
         scanner = new Scanner(System.in);
         Employee manager = findEmployeeByLastName(scanner.nextLine());
+        if (manager == null) {
+            log.info("Такого менеджера нет");
+            return;
+        }
+
+        log.info("Введите фамилию работника, которого хотите прикрепить к менеджеру");
+        Employee worker = findEmployeeByLastName(scanner.nextLine());
+        if (worker == null) {
+            log.info("Такого рабочего нет");
+            return;
+        }
+
+        if (manager.getEmployeeType() == EmployeeType.MANAGER) {
+            manager.addEmployeeToManager(worker);
+            log.info("Работник {} прикреплен к менеджеру {}", worker.getLastName(), manager.getLastName());
+        } else {
+            log.info("{} {} - рабочий, а не менеджер", worker.getLastName(), worker.getFirstName());
+        }
+    }
+
+
+    public void removeEmployeeToTheManager() {
+        log.info("Введите фамилию менеджера у которого хотите открепить сотрудника");
+        scanner = new Scanner(System.in);
+        Employee manager = findEmployeeByLastName(scanner.nextLine());
+        log.info("Введите фамилию рабочего которого хотите открепить");
+        Employee worker = findEmployeeByLastName(scanner.nextLine());
+
 
         if (manager == null) {
             log.info("Такого менеджера нет");
+        } else if (worker == null) {
+            log.info("Такого рабочего нет");
         } else {
-            if (manager.getEmployeeType() == EmployeeType.MANAGER) {
-                log.info("Введите фамилию работника, которого хотите прикрепить к менеджеру: {}", manager.getLastName());
-                Employee currentEmp = findEmployeeByLastName(scanner.nextLine());
-                manager.addEmployeeToManager(currentEmp);
-                log.info("Работник {} прикреплен к менеджеру {}", currentEmp.getLastName(), manager.getLastName());
-            } else {
-                log.info("{} {} - это рядовой сотрудник, а не менеджер", manager.getLastName(), manager.getFirstName());
-            }
+            manager.getEmployeesList().remove(worker);
         }
     }
 }

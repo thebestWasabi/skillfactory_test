@@ -22,11 +22,12 @@ public class ChangeEmployeeType {
 
                     1. Найти работника и его подчиненных (если они есть) по фамилии
                     2. Изменить должность сотрудника
-                    3. Привязать работника к менеджеру
-                    4. Назад
+                    3. Привязать рабочего к менеджеру
+                    4. Отвязать рабочего от менеджера
+                    5. Назад
                     """);
             command = select(scanner);
-        } while (!command.equals("4"));
+        } while (!command.equals("5"));
     }
 
 
@@ -38,7 +39,8 @@ public class ChangeEmployeeType {
             case "1" -> getEmployeeByLastName();
             case "2" -> changeEmployeeTypeByLastName();
             case "3" -> addEmployeeToTheManager();
-            case "4" -> System.out.println("Главное меню:");
+            case "4" -> removeEmployeeToTheManager();
+            case "5" -> System.out.println("Главное меню:");
             default -> System.err.println("Не корректная команда" + "\n");
         }
         return command;
@@ -55,6 +57,10 @@ public class ChangeEmployeeType {
 
     private void addEmployeeToTheManager() {
         department.addEmployeeToTheManager();
+    }
+
+    private void removeEmployeeToTheManager() {
+        department.removeEmployeeToTheManager();
     }
 
 }
