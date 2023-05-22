@@ -1,7 +1,7 @@
-package parser;
+package ru.wasabi.parser;
 
-import model.Employee;
-import model.EmployeeType;
+import ru.wasabi.model.Employee;
+import ru.wasabi.model.EmployeeType;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,16 +22,13 @@ public class Parser {
         List<Employee> employees = new ArrayList<>();
         while (scanner.hasNextLine()) {
             String[] employee = scanner.nextLine().split(" ");
+
             Employee currentEmployee = new Employee(employee[0], employee[1],
                     LocalDate.parse(employee[2], FORMATTER),
                     LocalDate.parse(employee[3], FORMATTER),
                     EmployeeType.valueOf(employee[4]));
 
-            if (employees.contains(currentEmployee)) {
-                System.out.println("Этот работник уже есть в списке");
-            } else {
-                employees.add(currentEmployee);
-            }
+            employees.add(currentEmployee);
         }
         return employees;
     }

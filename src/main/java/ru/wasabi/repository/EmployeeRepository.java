@@ -1,10 +1,10 @@
-package repository;
+package ru.wasabi.repository;
 
-import model.Employee;
+import ru.wasabi.model.Employee;
 
 import java.util.List;
 
-public interface EmployeeDataSource {
+public interface EmployeeRepository {
 
     List<Employee> getEmployees();
 
